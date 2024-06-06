@@ -27,8 +27,10 @@
             "styles": ["src/styles.sass"],
             "scripts": [],
             "server": "src/main.server.ts",
-            "prerender": false,
-            "ssr": false
+            "prerender": true,
+            "ssr": {
+              "entry": "server.ts"
+            }
           },
           "configurations": {
             "production": {
