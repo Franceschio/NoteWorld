@@ -81,16 +81,6 @@ export class HomeComponent implements OnInit, DoCheck {
     this.isNewNote = false;
   };
 
-  // impedire la ripetizione degli id
-
-  generateUniqueId = (): number => {
-    let randomId = Math.floor(Math.random() * 1000);
-    while (!this.notes.find((note) => note.id != randomId)) {
-      randomId = Math.floor(Math.random() * 1000);
-    }
-    return randomId;
-  };
-
   // Creazione della singola nuova nota
   createNote = (title: string, e: Event) => {
     e.preventDefault();
@@ -99,7 +89,7 @@ export class HomeComponent implements OnInit, DoCheck {
     let randomG: number = Math.floor(Math.random() * 100) + 100;
     let randomB: number = Math.floor(Math.random() * 100) + 100;
     //Crea id
-    let randomId = this.generateUniqueId();
+    let randomId = Math.floor(Math.random() * 1000);
     //Crea nuova nota
     this.notes = [
       ...this.notes,
