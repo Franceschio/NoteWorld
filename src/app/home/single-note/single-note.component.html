@@ -1,0 +1,53 @@
+<div class="singleNote" [ngClass]="{ activeNote: noteActive }">
+  <div class="deleteBtn" (click)="deleteNote()" *ngIf="textAreaActive">X</div>
+  <div class="noteTitle">
+    <h2 *ngIf="!textAreaActive">{{ title }}</h2>
+    <input
+      #titleInput
+      class="titleInput"
+      [(ngModel)]="title"
+      value="{{ title }}"
+      *ngIf="textAreaActive"
+      type="text"
+      maxlength="26"
+      required
+    />
+  </div>
+  <div class="noteContent">
+    <p style="white-space: pre-wrap" *ngIf="!textAreaActive || !noteActive">
+      {{ noteText }}
+    </p>
+    <textarea
+      *ngIf="textAreaActive && noteActive"
+      name="settaTestoNota"
+      id="settaTestoNota"
+      class="setNoteText"
+      placeholder="Contenuto della tua nota"
+      [(ngModel)]="noteText"
+      >{{ noteText }}</textarea
+    >
+  </div>
+  <div class="noteInfo">
+    <div class="noteDateCreation">
+      <p>{{ creationDate | date : "dd MMMM yyyy" }}</p>
+    </div>
+    <div class="noteCustomization">
+      <div
+        class="modifyHidden"
+        [ngClass]="{ modifyNote: noteActive, modifyOk: textAreaActive }"
+        (click)="setTextArea()"
+      >
+        <img
+          *ngIf="!textAreaActive"
+          src="https://cdn2.iconfinder.com/data/icons/office-38/24/office-41-512.png"
+          alt="Modifica"
+        />
+        <img
+          *ngIf="textAreaActive"
+          src="https://cdn4.iconfinder.com/data/icons/flat-business-3/512/Flat_business-2-512.png"
+          alt="Modifica"
+        />
+      </div>
+    </div>
+  </div>
+</div>

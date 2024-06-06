@@ -1,0 +1,75 @@
+<div class="home">
+  <div
+    class="modal"
+    (click)="setNoteFalse()"
+    (click)="setNewNoteFalse()"
+    [ngClass]="{ modalActive: noteActive || isNewNote }"
+  ></div>
+  <!-- Header -->
+  <div class="header">
+    <div class="searchbar">
+      <div class="icon">
+        <img
+          src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-search-strong-512.png"
+          alt="cerca"
+        />
+      </div>
+      <input
+        [(ngModel)]="searchInput"
+        class="searchInput"
+        type="text"
+        placeholder="Cerca..."
+        (input)="noteFilter()"
+      />
+    </div>
+  </div>
+
+  <!-- Titolo della cartella -->
+  <div class="titleCont">
+    <h1>Notes</h1>
+  </div>
+
+  <!-- Lista delle note -->
+  <div class="noteList">
+    <app-single-note
+      class="singleNote"
+      *ngFor="let note of filteredNoteList; let i = index"
+      (click)="setNoteTrue(i)"
+      [noteActive]="noteActive"
+      (emitActive)="valueNoteActive($event)"
+      [ngClass]="{ activeNote: filteredNoteList[i].active }"
+      [noteText]="filteredNoteList[i].text"
+      (emitText)="assignText($event, i)"
+      [title]="filteredNoteList[i].title"
+      (emitTitle)="assignTitle($event, i)"
+      [creationDate]="filteredNoteList[i].creationDate"
+      [ngStyle]="{ backgroundColor: filteredNoteList[i].backgroundColor }"
+      [notes]="filteredNoteList[i]"
+      (notesChanged)="(filteredNoteList[i])"
+      [allNotes]="notes"
+      (allNotesChanged)="assignNotes($event)"
+    />
+    <div class="createNewNote" (click)="setNewNoteTrue()"><p>+</p></div>
+  </div>
+  <div class="noteCreator" [ngClass]="{ newNoteActive: isNewNote }">
+    <h2>Crea nuova nota</h2>
+    <form
+      (submit)="createNote(this.inputNote.value, $event)"
+      action="CreateNote"
+    >
+      <input
+        #inputNote
+        class="inputNote"
+        type="text"
+        maxlength="26"
+        placeholder="Titolo della nuova nota..."
+      />
+      <input
+        (click)="createNote(this.inputNote.value, $event)"
+        class="sendNote"
+        type="button"
+        value="Crea"
+      />
+    </form>
+  </div>
+</div>
